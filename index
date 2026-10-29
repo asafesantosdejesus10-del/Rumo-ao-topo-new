@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rumo ao Topo</title>
+<style>
+:root{--bg:#07070b;--s1:#111118;--s2:#191924;--bd:#292938;--tx:#ecebf5;--mu:#9b99b0;--pu:#8b5cf6;--pu2:#c4b5fd;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:rgba(7,7,11,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:16px;padding:10px 16px;overflow-x:auto}
+.logo{font-weight:800;color:var(--pu2);white-space:nowrap}
+#nav{display:flex;gap:6px}
+.tab{background:none;border:1px solid transparent;color:var(--mu);padding:7px 12px;border-radius:8px;cursor:pointer;font:inherit;white-space:nowrap}
+.tab.on{background:var(--s2);color:#fff;border-color:var(--pu)}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px}
+main{max-width:1080px;margin:0 auto;padding:20px 16px 60px}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.grid .card{margin:0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:16px}
+.stats .card{margin:0}.stats h2{margin:2px 0 0;font-size:28px;color:var(--pu2)}
+h3{margin:0 0 6px}
+small,.mu{color:var(--mu)}
+input,select,textarea{width:100%;background:#0c0c12;color:var(--tx);border:1px solid var(--bd);border-radius:9px;padding:9px 11px;font:inherit;margin:4px 0}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--pu);border-color:transparent}
+textarea{resize:vertical}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row>input,.row>select{flex:1;min-width:140px;width:auto}
+.btn{background:var(--pu);color:#fff;border:0;border-radius:9px;padding:9px 14px;cursor:pointer;font:inherit;font-weight:600}
+.btn:hover{filter:brightness(1.12)}.btn:disabled{opacity:.5;cursor:wait}
+.btn.g{background:transparent;border:1px solid var(--bd);color:var(--tx)}
+.sm{padding:5px 10px;font-size:13px}
+.pill{display:inline-block;background:#241a40;color:var(--pu2);border-radius:99px;padding:2px 10px;font-size:12px;margin:2px}
+.site{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--bd)}
+.site a,.card a{color:var(--pu2);word-break:break-all}
+.x{margin-left:auto;background:none;border:0;color:var(--mu);cursor:pointer;font-size:18px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--pu);padding:9px 16px;border-radius:99px;z-index:20}
+.warn{color:#fbbf24}
+iframe{width:100%;height:560px;border:1px solid var(--bd);border-radius:12px;background:#fff;margin-top:10px}
+.prev{height:110px;border-radius:10px;background:#0c0c12;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;margin-bottom:10px}
+.fill{position:absolute;inset:0}
+.pv{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--pu),var(--pu2))}
+.chips{display:flex;flex-wrap:wrap;gap:4px;padding:8px;justify-content:center}.chips span{background:#241a40;color:var(--pu2);font-size:11px;padding:2px 8px;border-radius:6px}
+.ptx{font-size:11px;color:var(--mu);padding:8px;line-height:1.35;max-height:100%;overflow:hidden}
+.mk{display:flex;flex-direction:column;gap:6px;width:88%}.mk i{display:block;height:6px;border-radius:3px;background:#34344a}.mk .h{height:11px;width:60%;background:var(--pu2)}.mk .bt{width:40px;height:10px;background:var(--pu);margin-top:4px}.mk .r{display:flex;gap:8px;align-items:center}.mk .c{flex:1;display:flex;flex-direction:column;gap:5px}.mk b{flex:1;height:60px;border-radius:6px;background:linear-gradient(135deg,var(--pu),#3b1d7a)}.mk u{width:22%;height:70px;border-radius:5px;background:#1f1a33}
+@keyframes fl{50%{transform:translateY(-12px)}}
+@keyframes pu{50%{transform:scale(1.25);opacity:.6}}
+@keyframes sp{to{transform:rotate(360deg)}}
+@keyframes bg{50%{background-position:100% 50%}}
+@keyframes sh{to{background-position:-200% 0}}
+@keyframes ru{0%{opacity:0;transform:translateY(22px)}40%,100%{opacity:1;transform:none}}
+@keyframes si{0%{transform:translateX(-60px);opacity:0}40%,100%{transform:none;opacity:1}}
+@keyframes ty{from{width:8px}to{width:130px}}
+.a1{animation:fl 2.2s ease-in-out infinite}.a2{animation:pu 1.6s ease-in-out infinite}.a3{animation:sp 6s linear infinite;border-radius:30%}
+.a4{width:130px;height:14px;border-radius:7px;background:linear-gradient(90deg,#241a40 30%,var(--pu2) 50%,#241a40 70%);background-size:200% 100%;animation:sh 1.8s linear infinite}
+.o1{animation:ru 2.4s infinite}.o2{animation:si 2.4s infinite}.o3{width:8px;height:14px;border-radius:3px;animation:ty 2.4s steps(12) infinite alternate}
+.o4{transition:.3s}.prev:hover .o4{transform:translateY(-8px) scale(1.12);box-shadow:0 12px 26px #8b5cf666}
+.s1{background:radial-gradient(at 20% 20%,#8b5cf6,transparent 50%),radial-gradient(at 80% 30%,#4c1d95,transparent 50%),radial-gradient(at 50% 95%,#c084fc,transparent 50%),#07070b;background-size:200% 200%;animation:bg 7s ease infinite}
+.s2{background:linear-gradient(115deg,#000,#5b21b6,#a78bfa,#000);background-size:300% 300%;animation:bg 6s ease infinite;filter:blur(5px)}
+.s3{background:conic-gradient(from 0deg,#000,#8b5cf6,#000,#6d28d9,#000);transform:scale(2.4);animation:sp 9s linear infinite}
+.s4{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E"),linear-gradient(135deg,#1e1033,#8b5cf6);background-blend-mode:overlay}
+.b1{background-image:linear-gradient(#2a2145 1px,transparent 1px),linear-gradient(90deg,#2a2145 1px,transparent 1px);background-size:20px 20px}
+.b2{background-image:radial-gradient(#6d4fd6 1.2px,transparent 1.6px);background-size:16px 16px}
+.b3{background:radial-gradient(circle at 50% 0,#8b5cf6aa,transparent 65%)}
+.b4{background:repeating-linear-gradient(45deg,#101018 0 10px,#1c1530 10px 20px)}
+</style>
+<link href='https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syncopate:wght@400;700&display=swap' rel='stylesheet'>
+<style>
+body{font-family:Manrope,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:16px;background:radial-gradient(900px 500px at 85% -10%,#2b1659 0,transparent 60%),radial-gradient(700px 400px at -10% 10%,#1a0f3a 0,transparent 55%),var(--bg);background-attachment:fixed}
+h1,h2,h3,.logo{font-family:Syncopate,Manrope,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.02em}
+.hero{margin:6px 0 28px}
+h1{font-size:clamp(28px,5.5vw,54px);line-height:1.08;margin:0 0 12px;font-weight:700;background:linear-gradient(90deg,#fff,var(--pu2) 70%,var(--pu));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0;color:var(--mu);font-size:17px;max-width:620px}
+h3{font-size:21px;margin:0 0 10px;font-weight:700}
+.card[style*='max-width:420px'] h3{font-size:26px}
+.stats h2{font-size:36px;font-weight:700;color:var(--pu2)}
+.logo{font-size:15px;letter-spacing:.14em}
+header{padding:12px 22px}
+.tab{font-weight:600;border-radius:99px;padding:8px 16px;transition:.2s}
+.tab:hover{color:#fff;background:var(--s2)}
+.tab.on{background:linear-gradient(135deg,#6d3fe0,var(--pu));border-color:transparent;box-shadow:0 6px 20px #8b5cf655}
+main{padding-top:30px}
+.card{background:linear-gradient(180deg,#14141d,#0f0f16);border-radius:18px;padding:20px;transition:border-color .2s,transform .2s}
+.grid .card:hover{border-color:var(--pu);transform:translateY(-3px)}
+.btn{border-radius:12px;padding:10px 18px;background:linear-gradient(135deg,#7c4dff,var(--pu));box-shadow:0 6px 18px #8b5cf633;transition:.2s}
+.btn.g{background:transparent;box-shadow:none}
+.btn.g:hover{border-color:var(--pu)}
+.btn.sm{padding:6px 12px}
+input,select,textarea{border-radius:12px;padding:11px 14px;background:#0b0b11}
+@media(max-width:600px){.card{padding:16px}.row>.btn{flex:1}header{gap:10px;padding:10px 14px}}
+</style>
+</head>
+<body>
+<header><span class="logo">◆ Rumo ao Topo</span><nav id="nav"></nav></header>
+<main id="main"></main>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ld=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast("Armazenamento cheio")}};
+function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),2400)}
+const CAT={m:"Modelos",t:"Templates",a:"Animações",o:"Motion",s:"Shaders",p:"Prompts",b:"Backgrounds"};
+const MK=['<i style="width:100%"></i><i class="h" style="margin:8px auto 0"></i><i style="width:55%;margin:0 auto"></i><i class="bt" style="margin:4px auto"></i>','<div class="r"><div class="c"><i class="h"></i><i></i><i class="bt"></i></div><b></b></div>','<i class="h"></i><div class="r"><b style="height:40px"></b><b style="height:40px"></b><b style="height:40px"></b></div>','<div class="r" style="align-items:stretch"><u></u><div class="c"><i class="h"></i><i></i><i></i></div></div>'];
+const L=[
+["m","Hero centralizado","Hero centralizado com título grande, subtítulo e botão de ação, seguido de seções em blocos",0],
+["m","Hero dividido","Hero em duas colunas: texto à esquerda e imagem ou ilustração à direita",1],
+["m","Grade de serviços","Cards em grade para serviços ou produtos, ideal para negócios locais",2],
+["m","Barra lateral","Menu lateral fixo e área de conteúdo, bom para painéis e portfólios",3],
+["t","Barbearia","Hero com botão de agendar, serviços com preços, galeria, horários, localização e Instagram","Hero · Serviços · Galeria · Horários · Mapa"],
+["t","Restaurante","Hero com prato destaque, cardápio por categorias, reservas, avaliações e contato","Hero · Cardápio · Reservas · Avaliações"],
+["t","Portfólio","Apresentação, projetos em destaque, habilidades, depoimentos e contato","Sobre · Projetos · Skills · Contato"],
+["t","Landing de serviço","Promessa principal, benefícios, como funciona, preços, perguntas frequentes e CTA final","Promessa · Benefícios · Preços · FAQ"],
+["a","Flutuar","Elementos que flutuam suavemente para cima e para baixo (CSS keyframes)","a1"],
+["a","Pulsar","Elementos que pulsam de leve para chamar atenção em botões e ícones","a2"],
+["a","Girar lento","Formas que giram devagar como decoração de fundo","a3"],
+["a","Brilho deslizante","Brilho que desliza sobre botões e títulos (shimmer)","a4"],
+["o","Revelar ao rolar","Elementos aparecem com fade e subida ao entrar na tela (IntersectionObserver)","o1"],
+["o","Entrada lateral","Blocos entram deslizando pelo lado com suavidade","o2"],
+["o","Digitando","Título com efeito de máquina de escrever","o3"],
+["o","Hover com elevação","Cards sobem e ganham brilho roxo ao passar o mouse","o4"],
+["s","Mesh gradient","Fundo estilo shader com gradiente de malha animado em roxo e preto","s1"],
+["s","Aurora","Aurora suave em movimento lento com tons de roxo","s2"],
+["s","Cônico giratório","Gradiente cônico girando devagar atrás do conteúdo","s3"],
+["s","Grão e gradiente","Gradiente roxo com textura de grão (noise) para um visual premium","s4"],
+["p","Prompt: barbearia","Landing page para barbearia: hero com botão de agendar no WhatsApp, tabela de serviços com preços, galeria de cortes, horários, mapa e botão do Instagram. Estilo escuro, elegante e masculino."],
+["p","Prompt: portfólio dev","Site de portfólio para desenvolvedor: apresentação impactante, projetos em cards com hover, habilidades, depoimentos e formulário de contato. Visual escuro com detalhes em roxo e animações suaves."],
+["p","Prompt: restaurante","Site para restaurante: foto destaque, cardápio por categorias, botão de reserva, avaliações de clientes, endereço e horários. Visual aconchegante, tipografia elegante e carregamento rápido."],
+["p","Prompt: página de vendas","Página de vendas de um serviço: promessa clara no topo, benefícios com ícones, passo a passo, planos de preço, depoimentos, perguntas frequentes e chamada final para contato."],
+["b","Grade","Fundo preto com grade fina em roxo escuro","b1"],
+["b","Pontos","Fundo com pontos roxos espaçados","b2"],
+["b","Holofote","Luz roxa vindo do topo sobre fundo preto","b3"],
+["b","Listras diagonais","Listras diagonais sutis em preto e roxo","b4"]];
+const HOSTS=["Netlify","Vercel","GitHub Pages","Cloudflare Pages","Hostinger","Hostgator","Locaweb","Outro"],ST=["Em andamento","Em revisão","Entregue"];
+let S={p:[],c:[],s:[]},U=null,AM='in',view="dash",tab="p",cat="m",PF=[],sample=null,dl=null;
+const G={idea:"",seg:"",pout:"",gp:"",html:"",name:"",code:false,busy:false};
+const uid=()=>Math.random().toString(36).slice(2,9),save=()=>{sv(K('cm_p'),S.p);sv(K('cm_c'),S.c);sv(K('cm_s'),S.s)};
+const hu=u=>esc(/^https?:\/\//i.test(u)?u:"https://"+u),fd=d=>d?d.split("-").reverse().join("/"):"";
+const T=(it,cur,a)=>`<div class="tabs">${it.map(([k,l])=>`<button class="tab ${cur==k?"on":""}" data-a="${a}" data-id="${k}">${l}</button>`).join("")}</div>`;
+const ctx=()=>S.s.map(n=>{const x=L.find(y=>y[1]==n);return x?`- ${CAT[x[0]]}: ${x[1]} (${x[2]})`:""}).join("\n");
+const errm=e=>e&&e.code=="bad_key"?"Senha da IA incorreta. Use o botão Senha da IA no topo.":e&&e.code=="offline"?"Sem conexão com o servidor de IA":e&&e.code=="server"?(e.message||"Erro no servidor de IA"):e&&e.code=="not_granted"?"Permissão negada para usar a IA":e&&e.code=="rate_limited"?"Muitos pedidos, aguarde um pouco":"Não foi possível gerar agora";
+const clean=t=>{t=t.replace(/```(?:html)?/gi,"").trim();const i=t.search(/<!doctype|<html/i);return i>0?t.slice(i):t};
+async function cp(t){try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement("textarea");a.value=t;document.body.append(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove()}toast("Copiado")}
+
+function pv(x){const c=x[0],e=x[3];
+if(c=="m")return`<div class="mk">${MK[e]}</div>`;
+if(c=="t")return`<div class="chips">${e.split(" · ").map(s=>`<span>${s}</span>`).join("")}</div>`;
+if(c=="p")return`<div class="ptx">${esc(x[2])}</div>`;
+if(c=="a"||c=="o")return`<div class="pv ${e}"></div>`;
+return`<div class="fill ${e}"></div>`}
+
+function vDash(){const sites=S.c.flatMap(c=>c.sites),hc={};sites.forEach(s=>hc[s.h]=(hc[s.h]||0)+1);
+return`<div class="stats">${[["Projetos",S.p.length],["Clientes",S.c.length],["Sites no ar",sites.length],["Itens escolhidos",S.s.length]].map(([a,b])=>`<div class="card"><small>${a}</small><h2>${b}</h2></div>`).join("")}</div>${T([["p","Projetos"],["c","Clientes e hospedagem"]],tab,"tab")}${tab=="p"?vProj():vCli(hc)}`}
+
+function vProj(){return`<div class="card"><h3>Novo projeto</h3><div class="row"><input id="pn" placeholder="Nome do projeto"><select id="pc"><option value="">Sem cliente</option>${S.c.map(c=>`<option>${esc(c.n)}</option>`).join("")}</select></div><input id="pl" placeholder="Link do projeto (opcional)"><textarea id="pt" rows="2" placeholder="Notas"></textarea><div class="row"><input type="file" id="pf" multiple><button class="btn" data-a="addp">Adicionar projeto</button></div><small>Os anexos ficam registrados pelo nome do arquivo.</small></div>`+
+(S.p.map(p=>`<div class="card"><div class="row"><b>${esc(p.n)}</b>${p.c?`<span class="pill">${esc(p.c)}</span>`:""}<button class="btn g sm" data-a="stp" data-id="${p.id}">${ST[p.st]}</button><button class="x" data-a="delp" data-id="${p.id}" title="Excluir">×</button></div>${p.note?`<p class="mu">${esc(p.note)}</p>`:""}${p.l?`<a href="${hu(p.l)}" target="_blank" rel="noopener">${esc(p.l)}</a>`:""}<div>${p.f.map(f=>`<span class="pill">📎 ${esc(f)}</span>`).join("")}</div>${p.html?`<button class="btn g sm" data-a="openp" data-id="${p.id}">Abrir site gerado</button>`:""}</div>`).join("")||`<p class="mu">Nenhum projeto ainda.</p>`)}
+
+function vCli(hc){return`<div class="card"><h3>Onde estão hospedados</h3>${Object.entries(hc).map(([h,n])=>`<span class="pill">${esc(h)}: ${n}</span>`).join("")||`<span class="mu">Adicione sites aos clientes.</span>`}</div><div class="card"><h3>Novo cliente</h3><div class="row"><input id="cn" placeholder="Nome do cliente"><input id="ct" placeholder="WhatsApp ou e-mail"><button class="btn" data-a="addc">Adicionar</button></div></div>`+
+(S.c.map(c=>`<div class="card"><div class="row"><b>${esc(c.n)}</b><span class="mu">${esc(c.ct)}</span><button class="x" data-a="delc" data-id="${c.id}" title="Excluir">×</button></div>${c.sites.map((s,i)=>`<div class="site"><a href="${hu(s.u)}" target="_blank" rel="noopener">${esc(s.u)}</a><span class="pill">${esc(s.h)}</span>${s.r?`<span class="mu">renova ${fd(s.r)}</span>`:""}<button class="x" data-a="dels" data-id="${c.id}" data-i="${i}">×</button></div>`).join("")||`<p class="mu">Nenhum site ainda.</p>`}<div class="row"><input id="su-${c.id}" placeholder="https://site-do-cliente.com"><select id="sh-${c.id}">${HOSTS.map(h=>`<option>${h}</option>`).join("")}</select><input id="sr-${c.id}" type="date"><button class="btn" data-a="adds" data-id="${c.id}">+ Site</button></div></div>`).join("")||`<p class="mu">Nenhum cliente ainda.</p>`)}
+
+function vLib(){return`<div class="card row"><span>${S.s.length} itens selecionados</span><button class="btn" data-a="nav" data-id="gs" style="margin-left:auto">Gerar site com a seleção</button></div>${T(Object.entries(CAT),cat,"cat")}<div class="grid">${L.map((x,i)=>[x,i]).filter(([x])=>x[0]==cat).map(([x,i])=>{const on=S.s.includes(x[1]);return`<div class="card"><div class="prev">${pv(x)}</div><b>${x[1]}</b>${x[0]=="p"?"":`<p class="mu">${esc(x[2])}</p>`}<div class="row" style="margin-top:8px"><button class="btn ${on?"":"g"} sm" data-a="tog" data-id="${i}">${on?"✓ Selecionado":"Selecionar"}</button>${x[0]=="p"?`<button class="btn g sm" data-a="usep" data-id="${i}">Usar no gerador</button>`:""}</div></div>`}).join("")}</div>`}
+
+function vPg(){return`<div class="card"><h3>Gerador de prompt</h3><p class="mu">Escreva a ideia e a IA transforma em um prompt completo para um site mais limpo, bonito e atraente.</p><textarea data-k="idea" rows="4" placeholder="Ex.: site para uma barbearia do bairro, com agendamento pelo WhatsApp">${esc(G.idea)}</textarea><input data-k="seg" value="${esc(G.seg)}" placeholder="Segmento ou público (opcional)"><div class="row"><button class="btn" data-a="pgen" ${G.busy?"disabled":""}>${G.busy?"Aprimorando…":"✨ Aprimorar prompt"}</button><span class="mu">Os itens escolhidos na biblioteca também entram.</span></div>${sample?"":`<p class="warn">A IA não está disponível nesta visualização.</p>`}</div><div class="card"><h3>Prompt aprimorado</h3><textarea id="pout" data-k="pout" rows="12">${esc(G.pout)}</textarea><div class="row"><button class="btn g" data-a="copy" data-id="pout">Copiar</button><button class="btn" data-a="topgs">Usar no gerador de sites</button></div></div>`}
+
+function vGs(){return`<div class="card"><h3>Gerar site</h3><div>${S.s.map(n=>`<span class="pill">${esc(n)}</span>`).join("")||`<span class="mu">Nenhum item da biblioteca selecionado.</span>`}</div><textarea id="gp" data-k="gp" rows="8" placeholder="Cole aqui o prompt ou gere um no Gerador de prompt…">${esc(G.gp)}</textarea><div class="row"><button class="btn" data-a="gen" ${G.busy?"disabled":""}>${G.busy?"Gerando…":"🚀 Gerar site"}</button><span id="gst" class="mu"></span></div>${sample?"":`<p class="warn">A IA não está disponível nesta visualização.</p>`}</div>`+
+(G.html?`<div class="card"><div class="row"><button class="btn g sm" data-a="copy" data-id="code">Copiar código</button>${dl||!window.claude?`<button class="btn g sm" data-a="dlh">Baixar .html</button>`:""}<button class="btn g sm" data-a="code">${G.code?"Ver prévia":"Ver código"}</button><input data-k="name" value="${esc(G.name)}" placeholder="Nome do projeto"><button class="btn sm" data-a="savep">Salvar nos projetos</button></div>${G.code?`<textarea rows="18" readonly>${esc(G.html)}</textarea>`:`<iframe sandbox="allow-scripts" srcdoc="${esc(G.html)}"></iframe>`}</div>`:"")}
+
+function render(){const y=window.scrollY;render0();scrollTo(0,y)}
+function render0(){if(!U){$('#nav').innerHTML='';$('#main').innerHTML=AM=='fg'?vFg():vAuth();return}$('#nav').innerHTML=[["dash","Dashboard"],["lib","Biblioteca"],["pg","Gerador de prompt"],["gs","Gerar site"]].map(([k,l])=>`<button class="tab ${view==k?"on":""}" data-a="nav" data-id="${k}">${l}</button>`).join('')+`<span class='mu' style='margin-left:12px;white-space:nowrap'>@${esc(U.user)}</span>${sample===srv?`<button class='tab' data-a='ak'>Senha da IA</button>`:''}<button class='tab' data-a='out'>Sair</button>`;$('#main').innerHTML=pageHead()+{dash:vDash,lib:vLib,pg:vPg,gs:vGs}[view]();$('#main').insertAdjacentHTML('afterbegin',rcBanner())}
+
+const newSalt=()=>btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(16)))),newRc=()=>{const al='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';return [...crypto.getRandomValues(new Uint8Array(12))].map(n=>al[n%al.length]).join('')},fmt=c=>c.match(/.{4}/g).join('-');
+function rcBanner(){if(!U)return '';if(G.rc)return `<div class='card' style='border-color:var(--pu)'><h3>Seu código de recuperação</h3><p class='mu'>Anote em um lugar seguro. Ele é a única forma de redefinir a senha e não será mostrado de novo.</p><h2 style='letter-spacing:2px;color:var(--pu2)'>${fmt(G.rc)}</h2><div class='row'><button class='btn g sm' data-a='rcopy'>Copiar</button><button class='btn sm' data-a='rcok'>Já guardei</button></div></div>`;return U.rh?'':`<div class='card'><b>Sem código de recuperação</b><p class='mu'>Gere um código para poder redefinir a senha caso você esqueça.</p><button class='btn sm' data-a='mkrc'>Gerar código</button></div>`}
+function vFg(){return `<div class='card' style='max-width:420px;margin:40px auto'><h3>Redefinir senha</h3><p class='mu'>Informe o e-mail da conta e o código de recuperação que apareceu quando você criou a conta.</p><input id='fe' type='email' placeholder='E-mail' autocomplete='email'><input id='fc' placeholder='Código de recuperação (XXXX-XXXX-XXXX)' autocomplete='off'><input id='fp' type='password' placeholder='Nova senha' autocomplete='new-password'><input id='fp2' type='password' placeholder='Repita a nova senha' autocomplete='new-password'><div class='row'><button class='btn' data-a='reset'>Redefinir senha</button><button class='btn g' data-a='back'>Voltar</button></div><small>O app não envia e-mails, então o código de recuperação faz esse papel.</small></div>`}
+const HT={dash:['Dashboard','Seus projetos, clientes e hospedagens em um só lugar.'],lib:['Biblioteca','Modelos, animações, shaders e prompts para inspirar o próximo site.'],pg:['Gerador de prompt','Transforme uma ideia simples em um prompt profissional.'],gs:['Gerar site','Crie o site direto aqui, sem sair da ferramenta.']};
+function pageHead(){return `<div class='hero'><h1>${HT[view][0]}</h1><p>${HT[view][1]}</p></div>`}
+async function srv(q,o){o=o||{};if(!ld('cm_ak','')){const v=window.prompt('Senha do servidor de IA (a mesma configurada na Vercel)');if(!v)throw {code:'bad_key'};sv('cm_ak',v.trim())}
+let r;try{r=await fetch('/api/claude',{method:'POST',headers:{'content-type':'application/json','x-app-key':ld('cm_ak','')},body:JSON.stringify({prompt:q})})}catch(e){throw {code:'offline'}}
+if(!r.ok){let m={};try{m=await r.json()}catch(e){}if(r.status==401)sv('cm_ak','');throw {code:r.status==401?'bad_key':'server',message:m.error||''}}
+const rd=r.body.getReader(),dc=new TextDecoder();let t='';for(;;){const x=await rd.read();if(x.done)break;t+=dc.decode(x.value,{stream:true});if(o.onText)o.onText({text:t})}
+return {text:t,truncated:false}}
+function K(k){return k+'_'+(U?U.id:'')}
+function loadS(){S={p:ld(K('cm_p'),[]),c:ld(K('cm_c'),[]),s:ld(K('cm_s'),[])}}
+function enter(a){U=a;sv('cm_ses',a.id);loadS();view='dash';render()}
+async function hashPw(pw,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);const b=await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:Uint8Array.from(atob(salt),c=>c.charCodeAt(0)),iterations:150000},k,256);return btoa(String.fromCharCode(...new Uint8Array(b)))}
+function vAuth(){const r=AM=='reg';return `<div class='card' style='max-width:420px;margin:40px auto'><h3>${r?'Criar conta':'Entrar'}</h3><p class='mu'>${r?'Crie seu acesso ao Rumo ao Topo.':'Entre para ver seus projetos e clientes.'}</p>${r?`<input id='au' placeholder='Nome de usuário' autocomplete='username'>`:''}<input id='ae' type='${r?'email':'text'}' placeholder='${r?'E-mail':'E-mail ou nome de usuário'}' autocomplete='${r?'email':'username'}'><input id='ap' type='password' placeholder='Senha' autocomplete='${r?'new-password':'current-password'}'>${r?`<input id='ap2' type='password' placeholder='Repita a senha' autocomplete='new-password'>`:''}<div class='row'><button class='btn' data-a='auth'>${r?'Criar conta':'Entrar'}</button><button class='btn g' data-a='amode'>${r?'Já tenho conta':'Criar conta'}</button></div><small>A conta fica salva só neste navegador, sem servidor.</small>${r?'':`<p><button class='tab' data-a='fg'>Esqueci minha senha</button></p>`}</div>`}
+const ACT={
+amode:()=>{AM=AM=='reg'?'in':'reg';render()},
+ak:()=>{const v=window.prompt('Senha do servidor de IA');if(v!=null){sv('cm_ak',v.trim());toast('Senha salva')}},
+fg:()=>{AM='fg';render()},back:()=>{AM='in';render()},rcok:()=>{G.rc='';render()},rcopy:()=>cp(fmt(G.rc)),
+mkrc:async()=>{try{const c=newRc(),A=ld('cm_u',[]),i=A.findIndex(x=>x.id==U.id),rs=newSalt(),rh=await hashPw(c,rs);A[i]={...A[i],rs,rh};sv('cm_u',A);U=A[i];G.rc=c;render()}catch(e){toast('Não foi possível gerar o código')}},
+reset:async()=>{const id=$('#fe').value.trim().toLowerCase(),c=$('#fc').value.replace(/[^A-Za-z0-9]/g,'').toUpperCase(),pw=$('#fp').value,A=ld('cm_u',[]);try{if(pw.length<8)return toast('A senha precisa de 8 caracteres ou mais');if(pw!=$('#fp2').value)return toast('As senhas não coincidem');const i=A.findIndex(a=>a.email==id);if(i<0||!A[i].rh||await hashPw(c,A[i].rs)!=A[i].rh)return toast('E-mail ou código de recuperação incorretos');const salt=newSalt();A[i]={...A[i],salt,hash:await hashPw(pw,salt)};sv('cm_u',A);AM='in';render();toast('Senha redefinida. Entre com a nova senha.')}catch(e){toast('Não foi possível redefinir agora')}},
+out:()=>{U=null;sv('cm_ses',null);S={p:[],c:[],s:[]};Object.assign(G,{pout:'',gp:'',html:'',idea:'',name:''});render()},
+auth:async()=>{const reg=AM=='reg',id=$('#ae').value.trim().toLowerCase(),pw=$('#ap').value,us=reg?$('#au').value.trim():'',A=ld('cm_u',[]);try{if(reg){if(!/^[A-Za-z0-9_.-]{3,20}$/.test(us))return toast('Usuário: 3 a 20 letras, números, ponto, hífen ou _');if(!/^[^@ ]+@[^@ ]+[.][^@ ]+$/.test(id))return toast('E-mail inválido');if(pw.length<8)return toast('A senha precisa de 8 caracteres ou mais');if(pw!=$('#ap2').value)return toast('As senhas não coincidem');if(A.some(a=>a.email==id||a.user.toLowerCase()==us.toLowerCase()))return toast('E-mail ou usuário já cadastrado');const salt=btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(16)))),a={id:uid(),user:us,email:id,salt,hash:await hashPw(pw,salt)},rc=newRc();a.rs=newSalt();a.rh=await hashPw(rc,a.rs);G.rc=rc;if(!A.length)['cm_p','cm_c','cm_s'].forEach(k=>{try{const v=localStorage.getItem(k);if(v!=null)localStorage.setItem(k+'_'+a.id,v)}catch(e){}});A.push(a);sv('cm_u',A);enter(a)}else{const a=A.find(a=>a.email==id||a.user.toLowerCase()==id);if(!a||await hashPw(pw,a.salt)!=a.hash)return toast('Usuário ou senha incorretos');enter(a)}}catch(e){toast('Não foi possível usar a conta neste navegador')}},
+nav:id=>{view=id;render();scrollTo(0,0)},tab:id=>{tab=id;PF=[];render()},cat:id=>{cat=id;render()},
+tog:id=>{const n=L[id][1],i=S.s.indexOf(n);i<0?S.s.push(n):S.s.splice(i,1);save();render()},
+usep:id=>{G.idea=L[id][2];view="pg";render()},
+addp:()=>{const n=$("#pn").value.trim();if(!n)return toast("Dê um nome ao projeto");S.p.unshift({id:uid(),n,c:$("#pc").value,l:$("#pl").value.trim(),st:0,note:$("#pt").value.trim(),f:PF});PF=[];save();render()},
+delp:id=>{S.p=S.p.filter(p=>p.id!=id);save();render()},
+stp:id=>{const p=S.p.find(p=>p.id==id);p.st=(p.st+1)%3;save();render()},
+openp:id=>{G.html=S.p.find(p=>p.id==id).html;G.code=false;view="gs";render()},
+addc:()=>{const n=$("#cn").value.trim();if(!n)return toast("Dê um nome ao cliente");S.c.unshift({id:uid(),n,ct:$("#ct").value.trim(),sites:[]});save();render()},
+delc:id=>{S.c=S.c.filter(c=>c.id!=id);save();render()},
+adds:id=>{const u=$("#su-"+id).value.trim();if(!u)return toast("Informe o endereço do site");S.c.find(c=>c.id==id).sites.push({u,h:$("#sh-"+id).value,r:$("#sr-"+id).value});save();render()},
+dels:(id,b)=>{S.c.find(c=>c.id==id).sites.splice(+b.dataset.i,1);save();render()},
+copy:id=>cp(id=="code"?G.html:$("#"+id).value),
+topgs:()=>{G.gp=G.pout;view="gs";render()},
+code:()=>{G.code=!G.code;render()},
+savep:()=>{S.p.unshift({id:uid(),n:G.name.trim()||"Site gerado",c:"",l:"",st:0,note:"Gerado no estúdio",f:[],html:G.html});save();toast("Salvo nos projetos")},
+dlh:async()=>{if(!dl){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([G.html],{type:'text/html'}));a.download='site.html';a.click();return}try{await dl.save({filename:"site.html",data:G.html})}catch(e){if(!e||e.code!="declined")toast("Não foi possível baixar")}},
+pgen:async()=>{if(!G.idea.trim())return toast("Escreva a ideia primeiro");if(!sample)return toast("IA indisponível aqui");G.busy=true;render();
+try{const r=await sample(`Você é especialista em UX/UI e copywriting para sites. Transforme a ideia abaixo em um prompt detalhado, em português do Brasil, para uma IA gerar um site em um único arquivo HTML, limpo, bonito e atraente. Inclua: objetivo, público, estrutura de seções com textos sugeridos (título, subtítulo, chamadas para ação), estilo visual (paleta, tipografia, espaçamento), animações sutis, responsividade mobile, acessibilidade e SEO básico. Responda somente com o prompt final.\nIDEIA: ${G.idea}\nSEGMENTO/PÚBLICO: ${G.seg||"não informado"}\nITENS ESCOLHIDOS:\n${ctx()||"nenhum"}`,{modelTier:"default",cache:false,onText:({text})=>{G.pout=text;const o=$("#pout");if(o)o.value=text}});G.pout=r.text}catch(e){toast(errm(e))}
+G.busy=false;render()},
+gen:async()=>{if(!G.gp.trim()&&!S.s.length)return toast("Escreva um prompt ou escolha itens");if(!sample)return toast("IA indisponível aqui");G.busy=true;render();
+try{const r=await sample(`Você é um designer e desenvolvedor front-end sênior. Crie um site completo seguindo o pedido abaixo.\nREGRAS: responda SOMENTE com um documento HTML completo (começando em <!DOCTYPE html>), com CSS e JS inline, sem texto fora do código. Sem bibliotecas, fontes ou imagens externas (use SVG, gradientes e emojis). Responsivo (mobile first), semântico, acessível, em português do Brasil, visual limpo, moderno e atraente, animações sutis, espaçamento generoso e bom contraste. Se o pedido não definir paleta, use preto como cor primária e roxo como secundária. Seja conciso: no máximo cerca de 500 linhas.\nELEMENTOS ESCOLHIDOS:\n${ctx()||"nenhum"}\nPEDIDO:\n${G.gp||"Crie um site elegante usando os elementos escolhidos."}`,{modelTier:"complex",cache:false,onText:({text})=>{const s=$("#gst");if(s)s.textContent="Gerando… "+text.length+" caracteres"}});G.html=clean(r.text);G.code=false;if(r.truncated)toast("A resposta foi cortada, tente um pedido mais simples")}catch(e){toast(errm(e))}
+G.busy=false;render()}};
+{const sid=ld('cm_ses',null);U=ld('cm_u',[]).find(a=>a.id==sid)||null;if(U)loadS()}
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&!U&&e.target.matches('input'))(AM=='fg'?ACT.reset():ACT.auth())});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(!b)return;const f=ACT[b.dataset.a];f&&f(b.dataset.id,b)});
+document.addEventListener("input",e=>{const k=e.target.dataset.k;if(k)G[k]=e.target.value});
+document.addEventListener("change",e=>{if(e.target.id=="pf")PF=[...e.target.files].map(f=>f.name+" ("+Math.max(1,Math.round(f.size/1024))+" KB)")});
+render();
+(async()=>{if(window.claude){try{sample=await claude.use("sample")}catch(e){}try{dl=await claude.use("downloads")}catch(e){}}if(!sample){try{const r=await fetch('/api/claude');if(r.status==405)sample=srv}catch(e){}}if(view!="dash"||!document.activeElement||document.activeElement==document.body)render()})();
+</script>
+</body>
+</html>
